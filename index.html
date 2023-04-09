@@ -4,9 +4,72 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>JavaScript Coding Quiz : The Fundaments</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
   
+  <header id="header">
+      <a href="highscores.html" id="btn-high-scores">View Highscores</a>
+      <h2 id="clock">
+        <span>Time: <b id="timer"> 0 </b></span>
+      </h2>
+  </header>
+
+  <main>
+    <h1>Coding Quiz Challenge
+      <h2>JavaScript Fundaments</h2>
+    </h1>
+    <dl>
+      <p>
+        Try to answer the following code-related questions within the time limit.
+        Keep in mind that incorrect answer will penalize your score/time by ten seconds!
+      </p>
+    </dl>
+
+    <button id="btn-start">Start Quiz</button>
+  </main>
+
+  <section>
+    <span> 
+      <h2>Question</h2>
+      <ul id="choice-holder">
+        <li>
+          <button>a</button>
+        </li>
+        <li>
+          <button>b</button>
+        </li>
+        <li>
+          <button>c</button>
+        </li>
+        <li>
+          <button>d</button>
+        </li>
+      </ul>
+    </span>
+
+    <span>
+      <p>Correct!</p>
+      <p>Wrong!</p>
+    </span>
+  </section>
+
+  <section>
+    <h1>All done!</h1>
+    <h1>Final Score</h1>
+    <figure>
+      <p><input type="text" placeholder="Enter your initials" name="initials" id="name">
+        <button>Submit</button>
+        <button>Replay quiz here!</button>
+      </p>
+    </figure>
+  </section>
+
+  <section>
+    <h1>Highscores</h1>
+
+  </section>
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>
