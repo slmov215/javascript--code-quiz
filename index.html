@@ -16,13 +16,13 @@
       </h2>
   </header>
 
-  <main>
+  <main class="container" id="container">
     <h1>Coding Quiz Challenge
       <h2>JavaScript Fundaments</h2>
     </h1>
-    <dl>
-      <p>
-        Try to answer the following code-related questions within the time limit.
+    <dl id="article">
+      <p class="instruction text">
+        Try to answer the following code-related questions within the time limit. <br>
         Keep in mind that incorrect answer will penalize your score/time by ten seconds!
       </p>
     </dl>
@@ -30,46 +30,47 @@
     <button id="btn-start">Start Quiz</button>
   </main>
 
-  <section>
+  <section class="container hide" id="q-section">
     <span> 
-      <h2>Question</h2>
+      <h2 class="q-header" id="question">Question</h2>
       <ul id="choice-holder">
         <li>
-          <button>a</button>
+          <button id="a" class="abcd" onclick="rightWrong('a')">a</button>
         </li>
         <li>
-          <button>b</button>
+          <button id="b" class="abcd" onclick="rightWrong('a')">b</button>
         </li>
         <li>
-          <button>c</button>
+          <button id="c" class="abcd" onclick="rightWrong('a')">c</button>
         </li>
         <li>
-          <button>d</button>
+          <button id="d" class="abcd" onclick="rightWrong('a')">d</button>
         </li>
       </ul>
     </span>
 
-    <span>
-      <p>Correct!</p>
-      <p>Wrong!</p>
+    <span class="rightWrong hide" id="status">
+      <p class="hide" id="right">Correct!</p>
+      <p class="hide" id="wrong">Wrong!</p>
     </span>
   </section>
 
-  <section>
-    <h1>All done!</h1>
-    <h1>Final Score</h1>
-    <figure>
-      <p><input type="text" placeholder="Enter your initials" name="initials" id="name">
-        <button>Submit</button>
-        <button>Replay quiz here!</button>
+  <section class="container hide" id="finish">
+    <h1 class="done">All done! <br></h1>
+    <p id="result"></p>
+    <figure class="q-input">
+      <p class="q-end-p">
+        <input type="text" placeholder="Enter your initials" name="initials" id="name"> 
+        <button class="btn-submit" id="submit">Submit</button>
+        <button class="btn-retry" id="retry">Try Again!</button>
       </p>
     </figure>
   </section>
 
-  <section>
+  <!-- <section>
     <h1>Highscores</h1>
 
-  </section>
+  </section> -->
   <script src="./assets/js/script.js"></script>
 </body>
 </html>
