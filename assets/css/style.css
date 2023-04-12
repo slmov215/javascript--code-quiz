@@ -28,9 +28,9 @@ h1 {
 }
 
 #btn-high-scores {
-  color:rgb(204, 159, 166); 
+  color:rgb(190, 0, 190); 
   margin: 30px;
-  font-size: 20px;
+  font-size: 26px;
   border: none;
   background-color: white;
   text-decoration: none;
@@ -86,7 +86,7 @@ h1 {
 #choice-holder {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin: 30px;
 }
 
@@ -142,17 +142,12 @@ h1 {
   background-color: rgb(204, 159, 166);
 }
 
-/* #finish {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
-/* .hide {
+.hide {
   display: none;
-} */
+}
 
 ul {
-  background-color: rgb(75, 0, 130, 0.5);
+  /* background-color: rgb(75, 0, 130, 0.5); */
   list-style-type: none;
 }
 
