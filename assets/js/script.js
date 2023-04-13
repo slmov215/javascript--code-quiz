@@ -1,5 +1,14 @@
 console.log("Script linked")
-var position;
+var position;  
+var mainContainer = document.getElementById("container")
+var quizContainer = document.getElementById("q-section")
+var quesitonEL = document.getElementById("question")
+var buttonA = document.getElementById("a")
+var buttonB = document.getElementById("b")
+var buttonC = document.getElementById("c")
+var buttonD = document.getElementById("d")
+var choiceHolder = document.getElementById("choice-holder")
+var choices = document.getElementsByClassName("abcd")
 var questionBank = [
   {
     prompt: "What to ask",
@@ -27,9 +36,6 @@ var chosen = questionBank.correctAnswer;
 //Show the User the new QUestion
 
 function startQuiz(){
-
-  var mainContainer = document.getElementById("container")
-  var quizContainer = document.getElementById("q-section")
   mainContainer.style.display="none"
   quizContainer.style.display="block"
   position = 0
@@ -39,38 +45,66 @@ function startQuiz(){
 
 function showQuestion() {
   var currentQuestion = questionBank[position]
-  var quesitonEL = document.getElementById("question")
-
   quesitonEL.textContent = currentQuestion.prompt
-
-  var buttonA = document.getElementById("a")
-  var buttonB = document.getElementById("b")
-  var buttonC = document.getElementById("c")
-  var buttonD = document.getElementById("d")
-
   buttonA.textContent = currentQuestion.choices[0]
   buttonB.textContent = currentQuestion.choices[1]
   buttonC.textContent = currentQuestion.choices[2]
   buttonD.textContent = currentQuestion.choices[3]
 
-
+  var currentChoices = currentQuestion.choices;
   //somehow iterate through our array of questions
-
+  for (let i = 0; i < currentChoices.length; i++) {
+    // console.log(currentChoices[i])
   var currentPrompt = currentQuestion.prompt //
 // one of those is thorugh the index
-var currentChoices = currentQuestion.choices;
+}
+function addListeners () {
+  for (let i = 0; i < choices.length; i++) {
+      choices[i].addEventListener('click', nextQuestion)
+  }
+}
+
+function nextQuestion(event) {
+  console.log(event.target.textContent);
+  // console.log(quizQuestions[position].answer)
+  //if the answer(target) is correct
+  let isCorrect = event.target.textContent.trim() === quizQuestions[position].answer
+  if (!isCorrect) {
+      // console.log(e.target.textContent)
+      secondsLeft-=10;
+      timerButton.textContent = secondsLeft + ' Seconds left'
+  } 
+  //if incorrect take out 10 seconds from clock
+  position++;
+  //go to the next question -
+      //update current index
+  if (position < quizQuestions.length)  {
+      questions.textContent = quizQuestions[position].que
+      setAnswers(quizQuestions[position].options)
+      outcome.textContent = isCorrect ? 'Correct' : 'Wrong';
+      outcome.classList.remove('hidden')
+  } else {
+      //go to the end
+      clearInterval(timerInterval)
+      resultPage.classList.remove('hidden')
+      questions.classList.add('hidden')
+      listOfAnswers.classList.add('hidden')
+      score.textContent = secondsLeft
+  }
+      //if the index is equal to the length we go to the end (results) else if not equal do next steps
+      //update text content for question
+      //update text for answers
+
+}
 
 
-var choiceHolder = document.getElementById("choice-holder")
-for (let i = 0; i < currentChoices.length; i++) {
-  console.log(currentChoices[i])
 
   // var choiceBtn = document.createElement("button")
   // choiceBtn.style.color = "blue"
   // choiceBtn.innerHTML = currentChoices[i]
   // choiceBtn.addEventListener("click", selectAnswer)
   // choiceHolder.append(choiceBtn)
-}
+
   // somehow know what question we are at
   //that is my current index of my questions
 

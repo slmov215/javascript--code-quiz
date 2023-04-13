@@ -9,9 +9,9 @@ body {
   flex-direction: column;
 }
 
-header {
+/* header { */
   /* background-color: red; */
-}
+/* } */
 .container {
   display: flex;
   justify-content: center;
@@ -28,9 +28,9 @@ h1 {
 }
 
 #btn-high-scores {
-  color:rgb(190, 0, 190); 
+  color:rgb(204, 159, 166); 
   margin: 30px;
-  font-size: 26px;
+  font-size: 20px;
   border: none;
   background-color: white;
   text-decoration: none;
@@ -147,7 +147,6 @@ h1 {
 }
 
 ul {
-  /* background-color: rgb(75, 0, 130, 0.5); */
   list-style-type: none;
 }
 
