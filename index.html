@@ -10,7 +10,7 @@
 <body>
   
   <header id="header">
-      <a href="highscores.html" id="btn-high-scores">View Highscores</a>
+      <a href="#ranking" id="btn-high-scores">View Highscores</a>
       <h2 id="clock">
         <span>Time: <b id="timer"> 0 </b></span>
       </h2>
@@ -35,23 +35,18 @@
       <h2 class="q-header" id="question">Question</h2>
       <ul id="choice-holder">
         <li>
-          <button id="a" class="abcd" onclick="rightWrong('a')">a</button>
+          <button id="a" class="abcd" onclick="chosen('a')">a</button>
         </li>
         <li>
-          <button id="b" class="abcd" onclick="rightWrong('a')">b</button>
+          <button id="b" class="abcd" onclick="chosen('b')">b</button>
         </li>
         <li>
-          <button id="c" class="abcd" onclick="rightWrong('a')">c</button>
+          <button id="c" class="abcd" onclick="chosen('c')">c</button>
         </li>
         <li>
-          <button id="d" class="abcd" onclick="rightWrong('a')">d</button>
+          <button id="d" class="abcd" onclick="chosen('d')">d</button>
         </li>
       </ul>
-    </span>
-
-    <span class="rightWrong hide" id="status">
-      <p class="hide" id="right">Correct!</p>
-      <p class="hide" id="wrong">Wrong!</p>
     </span>
   </section>
 
@@ -59,7 +54,7 @@
     <h1 class="done">All done! <br></h1>
     <p id="result"></p>
     <figure class="q-input">
-      <p class="q-end-p">
+      <p class="q-end-p" id="scoreCard">
         <input type="text" placeholder="Enter your initials" name="initials" id="name"> 
         <button class="btn-submit" id="submit">Submit</button>
         <button class="btn-retry" id="retry">Try Again!</button>
@@ -67,10 +62,17 @@
     </figure>
   </section>
 
-  <!-- <section>
-    <h1>Highscores</h1>
+  <section id="statusSection">
+      <span class="rightWrong" id="status">
+      <p class="hide" id="right">Correct!</p>
+      <p class="hide" id="wrong">Wrong!</p>
+    </span>
+  </section>
+  <section class="container hide" id="ranking">
+    <h1>High Scores</h1>
+    <ul id="ranking-list"></ul>
 
-  </section> -->
+  </section>
   <script src="./assets/js/script.js"></script>
 </body>
 </html>

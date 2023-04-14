@@ -1,139 +1,219 @@
-console.log("Script linked")
-var position;  
-var mainContainer = document.getElementById("container")
-var quizContainer = document.getElementById("q-section")
-var quesitonEL = document.getElementById("question")
-var buttonA = document.getElementById("a")
-var buttonB = document.getElementById("b")
-var buttonC = document.getElementById("c")
-var buttonD = document.getElementById("d")
-var choiceHolder = document.getElementById("choice-holder")
-var choices = document.getElementsByClassName("abcd")
+console.log("Script linked");
 var questionBank = [
   {
-    prompt: "What to ask",
-    choices: ["1", "2", "3", "4"],
-    correctAnswer: "3"
+    question: "Where is the correct place to insert a JavaScript?",
+    answerA: "a. The <head>",
+    answerB: "b. The <body>",
+    answerC: "c. The <footer>",
+    answerD: "d. Both <head> and <body>",
+    correctAnswer: "d"
   },
   {
-    prompt: "What to 2",
-    choices: ["6", "2", "13", "4"],
-    correctAnswer: "4"
-  }
+    question: "JavaScript is inserted into which HTML element?",
+    answerA: "a. <scripting>",
+    answerB: "b. <javascript>",
+    answerC: "c. <script>",
+    answerD: "d. <js>",
+    correctAnswer: "c"
+  },
+  {
+    question: "What element is used to store multiple values in a single variable",
+    answerA: "a. Arrays",
+    answerB: "b. Strings",
+    answerC: "c. Variables",
+    answerD: "d. Strings",
+    correctAnswer: "a"
+  },
+  {
+    question: "A variable is declared with which of the following?",
+    answerA: "a. new",
+    answerB: "b. $",
+    answerC: "c. var",
+    answerD: "d. <js>",
+    correctAnswer: "c"
+  },
+  {
+    question: "Which of the following is not an object?",
+    answerA: "a. var obj = {}",
+    answerB: "b. var obj = { name = 'Stephen'}",
+    answerC: "c. var obj = { name: 'Stephen'}",
+    answerD: "d. var obj = function() ",
+    correctAnswer: "b"
+  },
+  {
+    question: "What will 0 == '0' return?",
+    answerA: "a. undefined",
+    answerB: "b. True",
+    answerC: "c. False",
+    answerD: "d. 0",
+    correctAnswer: "b"
+  },
+  {
+    question: " Fill in the blank: JavaScript is a ____________ language.",
+    answerA: "a. non case-sensitive",
+    answerB: "b. manipulative",
+    answerC: "c. statistic",
+    answerD: "d. case-sensitive",
+    correctAnswer: "d"
+  },
 ]
 
-var startBtn = document.getElementById("btn-start")
+var startBtn = document.getElementById("btn-start");
+var mainContainer = document.getElementById("container");
+var timer = document.getElementById("clock");
+var countDown = document.getElementById("timer");
+var quizContainer = document.getElementById("q-section");
+var quesitonEL = document.getElementById("question");
+var btnA = document.getElementById("a");
+var btnB = document.getElementById("b");
+var btnC = document.getElementById("c");
+var btnD = document.getElementById("d");
+var choiceHolder = document.getElementById("choice-holder");
+var choices = document.getElementsByClassName("abcd");
+var statProgress = document.getElementById("status");
+var right = document.getElementById("right");
+var wrong = document.getElementById("wrong");
+
+var finish = document.getElementById("finish");
+var result = document.getElementById("result");
+var submitScore = document.getElementById("submit");
+var tryAgain = document.getElementById("retry");
+
+var startCounter = 75;
+var timeInterval;
+var score = [];
+var currentPosition = 0;  
+var lastPosition = questionBank.length -1;
 
 
-console.log(questionBank[0].choices[2])
-var chosen = questionBank.correctAnswer;
-  if(questionBank[0].correctAnswer === chosen){
-  console.log('thats correct!');
-}else{
-  console.log('wrong!');
 
+
+function renderCounter() {
+  if (count <= questionTime) {
+      counter.innerHTML = count;
+      timeGauge.style.width = count * gaugeUnit;
+      count++
+  } else {
+      count = 0;
+  }
 }
-//Show the User the new QUestion
+
 
 function startQuiz(){
   mainContainer.style.display="none"
   quizContainer.style.display="block"
-  position = 0
+  currentPosition = 0
   showQuestion()
-}
 
+  timerInterval = setInterval(function() {
+    startCounter--;
+    countDown.textContent = startCounter;
+
+    if (startCounter === 0 || startCounter < 0) {
+        alert('OH NOOO ... Times up, Try Again!');
+        clearInterval(timerInterval);
+        showScore();
+    }
+    
+  }, 1000);
+}
 
 function showQuestion() {
-  var currentQuestion = questionBank[position]
-  quesitonEL.textContent = currentQuestion.prompt
-  buttonA.textContent = currentQuestion.choices[0]
-  buttonB.textContent = currentQuestion.choices[1]
-  buttonC.textContent = currentQuestion.choices[2]
-  buttonD.textContent = currentQuestion.choices[3]
+  var currentQuestion = questionBank[currentPosition];
+  quesitonEL.textContent = currentQuestion.question;
+  btnA.textContent = currentQuestion.answerA;
+  btnB.textContent = currentQuestion.answerB;
+  btnC.textContent = currentQuestion.answerC;
+  btnD.textContent = currentQuestion.answerD;
+};
 
-  var currentChoices = currentQuestion.choices;
-  //somehow iterate through our array of questions
-  for (let i = 0; i < currentChoices.length; i++) {
-    // console.log(currentChoices[i])
-  var currentPrompt = currentQuestion.prompt //
-// one of those is thorugh the index
-}
-function addListeners () {
-  for (let i = 0; i < choices.length; i++) {
-      choices[i].addEventListener('click', nextQuestion)
+function answerIsCorrect() {
+  statProgress.style.display="block";
+  right.style.display="block";
+  wrong.style.display="none";
+  // score +=5;
+};
+function answerIsWrong() {
+  statProgress.style.display="block";
+  wrong.style.display="block";
+  right.style.display="none";
+  startCounter -=10;
+};
+
+function chosen (answer){
+  if (answer === questionBank[currentPosition].correctAnswer) {
+    answerIsCorrect();
+  }else { answerIsWrong();
   }
-}
 
-function nextQuestion(event) {
-  console.log(event.target.textContent);
-  // console.log(quizQuestions[position].answer)
-  //if the answer(target) is correct
-  let isCorrect = event.target.textContent.trim() === quizQuestions[position].answer
-  if (!isCorrect) {
-      // console.log(e.target.textContent)
-      secondsLeft-=10;
-      timerButton.textContent = secondsLeft + ' Seconds left'
-  } 
-  //if incorrect take out 10 seconds from clock
-  position++;
-  //go to the next question -
-      //update current index
-  if (position < quizQuestions.length)  {
-      questions.textContent = quizQuestions[position].que
-      setAnswers(quizQuestions[position].options)
-      outcome.textContent = isCorrect ? 'Correct' : 'Wrong';
-      outcome.classList.remove('hidden')
+
+  if (currentPosition < lastPosition) {
+    currentPosition++;
+    showQuestion();
   } else {
-      //go to the end
-      clearInterval(timerInterval)
-      resultPage.classList.remove('hidden')
-      questions.classList.add('hidden')
-      listOfAnswers.classList.add('hidden')
-      score.textContent = secondsLeft
+    showScore();
   }
-      //if the index is equal to the length we go to the end (results) else if not equal do next steps
-      //update text content for question
-      //update text for answers
+  // if (currentPosition === lastPosition) {
+  //   alert('Correct!');
+  // }else { alert('WRONG!!!');
+  // }
+};
 
+function showScore(){
+  quizContainer.style.display="none";
+  finish.style.display="block";
+  statProgress.style.display="";
+  clearInterval(timerInterval);
+  countDown.textContent = ('Done');
+  document.getElementById("result").innerHTML = "Your score is " + startCounter + " second(s)!";
+};
+
+var playerName = document.getElementById("name");
+
+submitScore.addEventListener("click", function(event) {
+  event.preventDefault();
+  var scoreRanks = {
+    name: playerName,
+    score: startCounter
+  };
+  score.push(scoreRanks);
+  // document.getElementById("scoreCard").reset();
+  localStorage.setItem("scoreRanks", JSON.stringify(score));
+  // document.location.href = "highscores.html";
+  loadScores();
+});
+function getScore() {
+  var loadScores = JSON.parse(localStorage.getItem("scoreRanks")); 
+  if (!loadScores) {
+      loadScores = [];
+      return false;
+  }
 }
 
-
-
-  // var choiceBtn = document.createElement("button")
-  // choiceBtn.style.color = "blue"
-  // choiceBtn.innerHTML = currentChoices[i]
-  // choiceBtn.addEventListener("click", selectAnswer)
-  // choiceHolder.append(choiceBtn)
-
-  // somehow know what question we are at
-  //that is my current index of my questions
-
-  // 
-
-
-
-  //what is the target element ("by id?")
-  //What is the new HTML element I need to create
-  //what will be the style of it??
-
-  //What will be the element's conetent
-
-  //Appendit to the target
-
-}
-
-// function selectAnswer(event){
-//   event.preventDefault()
-//   console.log(event.target)
-//   console.log(event)
-//   //do whatever we gott to do after linking the button
-//   //that event will be a click
-//   //we need to chekc if its right or wrong
-//   //move on to the next question
-//   //somehow change the quesiton OR INDEX
-//   position += 1
-//   showQuestion()
-// }
-
+tryAgain.addEventListener("click", function retryQuiz() {
+  location.reload()
+})
 // startQuiz()
-startBtn.addEventListener("click", startQuiz)
+startBtn.addEventListener("click", startQuiz);
+
+var highScores = [];
+var rankingEl = document.getElementById("ranking-list");
+
+var loadScores = function() { 
+  rankingEl.innerHTML = "";
+  
+  for ( var i = 0; i < getScore.length; i++) {
+    var highScores = getScores[i];
+
+    highScores.forEach(function(element){
+      var newLi = document.createElement('li');
+      newLi.textContent = ele.name + ' - ' + ele.score;
+      rankingEl.appendChild(newLi);
+    })
+    rankingEl.textContent = JSON.parse(localStorage.getItem("scoreRanks"));
+  }
+  
+}
+
+
+loadScores();

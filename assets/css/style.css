@@ -9,9 +9,6 @@ body {
   flex-direction: column;
 }
 
-/* header { */
-  /* background-color: red; */
-/* } */
 .container {
   display: flex;
   justify-content: center;
@@ -43,10 +40,6 @@ h1 {
   color: rgba(247, 131, 212, 0.502);
 }
 
-/* p {
-  font-size: 20px;
-}  */
-
 #clock {
   margin: 30px;
 }
@@ -67,7 +60,6 @@ h1 {
 
 #btn-start:hover {
   background-color: rgb(204, 159, 166);
-  /* ??? */
 }
 
 .text {
@@ -188,7 +180,13 @@ footer.container {
 .done {
   font-size: 36px;
 }
-#ranking {
+/* #ranking {
   margin-top: 5%;
-  margin-bottom: 2%;
+  margin-bottom: 2%; */
+/* } */
+#statusSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 36px;
 }
