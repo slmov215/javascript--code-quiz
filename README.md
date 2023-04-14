@@ -16,7 +16,11 @@ N/A
 * Scores are the result of the remaining time after completion or time expiration.
 * User scores are recorded to a ranking system (still in progress).
 
-![Screenshot of the Webpage]()
+![Screenshot of the Webpage](./assets/images/slmov215.github.io_javascript-code-quiz_.png)
+
+![Screenshot of the Webpage](./assets/images/slmov215.github.io_javascript-code-quiz_%20(1).png)
+
+![Screenshot of the Webpage](./assets/images/slmov215.github.io_javascript-code-quiz_%20(2).png)
 
 
 ### Credits
