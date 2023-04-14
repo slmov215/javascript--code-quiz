@@ -78,6 +78,7 @@ var finish = document.getElementById("finish");
 var result = document.getElementById("result");
 var submitScore = document.getElementById("submit");
 var tryAgain = document.getElementById("retry");
+var leaderBoard = document.getElementById("ranking")
 
 var startCounter = 75;
 var timeInterval;
@@ -102,7 +103,8 @@ function renderCounter() {
 function startQuiz(){
   mainContainer.style.display="none"
   quizContainer.style.display="block"
-  currentPosition = 0
+  currentPosition = 0;
+  startCounter = 75;
   showQuestion()
 
   timerInterval = setInterval(function() {
@@ -113,9 +115,10 @@ function startQuiz(){
         alert('OH NOOO ... Times up, Try Again!');
         clearInterval(timerInterval);
         showScore();
-    }
-    
+    }    
   }, 1000);
+  finish.style.display="none";
+  leaderBoard.style.display = "none"
 }
 
 function showQuestion() {
@@ -153,57 +156,77 @@ function chosen (answer){
   } else {
     showScore();
   }
-  // if (currentPosition === lastPosition) {
-  //   alert('Correct!');
-  // }else { alert('WRONG!!!');
-  // }
 };
 
 function showScore(){
   quizContainer.style.display="none";
   finish.style.display="block";
   statProgress.style.display="";
+  leaderBoard.style.display = "block";
   clearInterval(timerInterval);
   countDown.textContent = ('Done');
   document.getElementById("result").innerHTML = "Your score is " + startCounter + " second(s)!";
+
+
 };
-
-var playerName = document.getElementById("name");
-
-submitScore.addEventListener("click", function(event) {
-  event.preventDefault();
+function saveScore() {
+  var playerName = document.getElementById("name");
   var scoreRanks = {
     name: playerName,
     score: startCounter
   };
-  score.push(scoreRanks);
-  // document.getElementById("scoreCard").reset();
-  localStorage.getItem("scoreRanks", JSON.stringify(score));
-  // document.location.href = "highscores.html";
-  loadScores();
-});
-function getScore() {
-  var loadScores = JSON.parse(localStorage.getItem("scoreRanks")); 
-  if (!loadScores) {
-      loadScores = [];
-      return false;
-  }
+  localStorage.setItem("scoreRanks", JSON.stringify(playerName))
 }
 
-tryAgain.addEventListener("click", function retryQuiz() {
-  location.reload()
-})
+submitScore.addEventListener("click", saveScore);
+
+
+
+function getScore() {
+  var loadScores = JSON.parse(localStorage.getItem("scoreRanks")); 
+  if (!loadScores)
+      loadScores = [];
+
+    return loadScores;
+}
+function getScore(position) {
+  var loadScore = loadScore();
+  if (!loadScore)
+    return null
+
+  return loadScore[position];
+}
+
+function getScore(position, name, startCounter) {
+  var loadScore = loadScore();
+  if (!loadScore || !Array.isArray(loadScore))
+  loadScore = [];
+
+  loadScore.splice(position, 0, { name, startCounter })
+  if (loadScore.length > loadScoreMaxCount)
+  loadScore.pop();
+}
+
+tryAgain.addEventListener("click", startQuiz);
 // startQuiz()
 startBtn.addEventListener("click", startQuiz);
 
 var highScores = [];
 var rankingEl = document.getElementById("ranking-list");
 
-var loadScores = function() { 
-  rankingEl.innerHTML = "";
+function updateScores () {
+  var loadScores = getScore ();
   
-  for ( var i = 0; i < getScore.length; i++) {
-    var highScores = getScores[i];
+  for ( var ranking = 1; ranking <= loadScoreMaxCount.length; ranking++) {
+    var scoreEl = document.getElementById("ranking-list" + ranking).getElementsByClassName(""[0]);
+
+    let score = scoreEl[ranking - 1];
+    if (score) {
+      scoreEl.innerHTML = ranking + ')' + score.playerName + ' - ' + score.correct + '/' + questionBank.length;
+    }
+    else {
+      scoreEl.innerHTML = '';
+    }
 
     highScores.forEach(function(element){
       var newLi = document.createElement('li');
@@ -211,9 +234,9 @@ var loadScores = function() {
       rankingEl.appendChild(newLi);
     })
     rankingEl.textContent = JSON.parse(localStorage.getItem("scoreRanks"));
-  }
+  };
   
-}
+};
 
 
 loadScores();
