@@ -78,7 +78,8 @@ var finish = document.getElementById("finish");
 var result = document.getElementById("result");
 var submitScore = document.getElementById("submit");
 var tryAgain = document.getElementById("retry");
-var leaderBoard = document.getElementById("ranking")
+var leaderBoard = document.getElementById("ranking");
+var scoreList = document.getElementById("btn-high-scores");
 
 var startCounter = 75;
 var timeInterval;
@@ -206,7 +207,16 @@ function getScore(position, name, startCounter) {
   if (loadScore.length > loadScoreMaxCount)
   loadScore.pop();
 }
+function viewRanks() {
+  mainContainer.style.display="none";
+  quizContainer.style.display="none";
+  finish.style.display="none";
+  statProgress.style.display="none";
+  leaderBoard.style.display = "block";
+}
 
+scoreList.addEventListener("click", viewRanks);
+//restartQuiz
 tryAgain.addEventListener("click", startQuiz);
 // startQuiz()
 startBtn.addEventListener("click", startQuiz);
