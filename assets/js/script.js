@@ -178,7 +178,7 @@ submitScore.addEventListener("click", function(event) {
   };
   score.push(scoreRanks);
   // document.getElementById("scoreCard").reset();
-  localStorage.svar higgetgeetItem("scoreRanks", JSON.stringify(score));
+  localStorage.getItem("scoreRanks", JSON.stringify(score));
   // document.location.href = "highscores.html";
   loadScores();
 });
