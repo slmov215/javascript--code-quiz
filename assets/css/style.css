@@ -174,16 +174,18 @@ ul li {
   background-color: rgb(204, 159, 166);
 }
 
-footer.container {
+/* footer.container {
   flex-direction: unset;
-}
+} */
 .done {
   font-size: 36px;
 }
-/* #ranking {
+#ranking:click::after {
   margin-top: 5%;
-  margin-bottom: 2%; */
-/* } */
+  margin-bottom: 2%; 
+}
+
+
 #statusSection {
   display: flex;
   flex-direction: column;
