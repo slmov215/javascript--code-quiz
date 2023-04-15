@@ -80,6 +80,7 @@ var submitScore = document.getElementById("submit");
 var tryAgain = document.getElementById("retry");
 var leaderBoard = document.getElementById("ranking");
 var scoreList = document.getElementById("btn-high-scores");
+var clearScore = document.getElementById("btn-clear")
 
 var startCounter = 75;
 var timeInterval;
@@ -178,13 +179,24 @@ function saveScore() {
   };
   localStorage.setItem("scoreRanks", JSON.stringify(playerName))
 }
-
+function clearScores() {
+  localStorage.setItem("scoreRanks", JSON.stringify([]));
+  score
+  viewRanks() ;
+}
 submitScore.addEventListener("click", saveScore);
-
+clearScore.addEventListener("click",clearScores);
 
 
 function getScore() {
-  var loadScores = JSON.parse(localStorage.getItem("scoreRanks")); 
+  rankingEl.innerHTML = "";
+  var loadScores = JSON.parse(localStorage.getItem("scoreRanks"))|| []; 
+  loadScores.forEach(function(element){
+    var newLi = document.createElement("li");
+    newLi.textContent = element.name + ' - ' + element.score;
+    rankingEl.appendChild(newLi);
+  })
+
   if (!loadScores)
       loadScores = [];
 
@@ -213,6 +225,7 @@ function viewRanks() {
   finish.style.display="none";
   statProgress.style.display="none";
   leaderBoard.style.display = "block";
+  getScore();
 }
 
 scoreList.addEventListener("click", viewRanks);
@@ -247,6 +260,3 @@ function updateScores () {
   };
   
 };
-
-
-loadScores();
