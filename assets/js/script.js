@@ -76,9 +76,11 @@ var wrong = document.getElementById("wrong");
 
 var finish = document.getElementById("finish");
 var result = document.getElementById("result");
+var playerName = document.getElementById("name");
 var submitScore = document.getElementById("submit");
 var tryAgain = document.getElementById("retry");
 var leaderBoard = document.getElementById("ranking");
+var rankingEl = document.getElementById("ranking-list");
 var scoreList = document.getElementById("btn-high-scores");
 var clearScore = document.getElementById("btn-clear")
 
@@ -87,6 +89,7 @@ var timeInterval;
 var score = [];
 var currentPosition = 0;  
 var lastPosition = questionBank.length -1;
+var maxRank = 7;
 
 
 
@@ -168,19 +171,10 @@ function showScore(){
   clearInterval(timerInterval);
   countDown.textContent = ('Done');
   document.getElementById("result").innerHTML = "Your score is " + startCounter + " second(s)!";
-
-
 };
-function saveScore() {
-  var playerName = document.getElementById("name");
-  var scoreRanks = {
-    name: playerName,
-    score: startCounter
-  };
-  localStorage.setItem("scoreRanks", JSON.stringify(playerName))
-}
+
 function clearScores() {
-  localStorage.setItem("scoreRanks", JSON.stringify([]));
+  localStorage.setItem("scoreSaved", JSON.stringify([]));
   score
   viewRanks() ;
 }
@@ -190,9 +184,11 @@ clearScore.addEventListener("click",clearScores);
 
 function getScore() {
   rankingEl.innerHTML = "";
-  var loadScores = JSON.parse(localStorage.getItem("scoreRanks"))|| []; 
+  var loadScores = JSON.parse(localStorage.getItem("scoreSaved")) || []; 
+
   loadScores.forEach(function(element){
     var newLi = document.createElement("li");
+    newLi.className = "leader-board"
     newLi.textContent = element.name + ' - ' + element.score;
     rankingEl.appendChild(newLi);
   })
@@ -201,24 +197,24 @@ function getScore() {
       loadScores = [];
 
     return loadScores;
-}
-function getScore(position) {
-  var loadScore = loadScore();
-  if (!loadScore)
-    return null
-
-  return loadScore[position];
+  
 }
 
-function getScore(position, name, startCounter) {
-  var loadScore = loadScore();
-  if (!loadScore || !Array.isArray(loadScore))
-  loadScore = [];
+function saveScore() {
+  var scoreSaved = JSON.parse(localStorage.getItem("scoreSaved")) || []; 
+  var currentUser = playerName.value;
+  var currentScore = {
+    name: currentUser,
+    score: startCounter + ' s'
+  };
 
-  loadScore.splice(position, 0, { name, startCounter })
-  if (loadScore.length > loadScoreMaxCount)
-  loadScore.pop();
+  console.log(scoreSaved);
+
+  scoreSaved.push(currentScore);
+  localStorage.setItem("scoreSaved", JSON.stringify(scoreSaved));
+  getScore();
 }
+
 function viewRanks() {
   mainContainer.style.display="none";
   quizContainer.style.display="none";
@@ -233,30 +229,3 @@ scoreList.addEventListener("click", viewRanks);
 tryAgain.addEventListener("click", startQuiz);
 // startQuiz()
 startBtn.addEventListener("click", startQuiz);
-
-var highScores = [];
-var rankingEl = document.getElementById("ranking-list");
-
-function updateScores () {
-  var loadScores = getScore ();
-  
-  for ( var ranking = 1; ranking <= loadScoreMaxCount.length; ranking++) {
-    var scoreEl = document.getElementById("ranking-list" + ranking).getElementsByClassName(""[0]);
-
-    let score = scoreEl[ranking - 1];
-    if (score) {
-      scoreEl.innerHTML = ranking + ')' + score.playerName + ' - ' + score.correct + '/' + questionBank.length;
-    }
-    else {
-      scoreEl.innerHTML = '';
-    }
-
-    highScores.forEach(function(element){
-      var newLi = document.createElement('li');
-      newLi.textContent = ele.name + ' - ' + ele.score;
-      rankingEl.appendChild(newLi);
-    })
-    rankingEl.textContent = JSON.parse(localStorage.getItem("scoreRanks"));
-  };
-  
-};
